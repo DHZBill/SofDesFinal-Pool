@@ -1,0 +1,1 @@
+#ball class created here, holds ball positions, number, etc.
