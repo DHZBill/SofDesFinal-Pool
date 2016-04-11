@@ -20,6 +20,10 @@ class line(object):
 						 self.end,
 						 self.width)
 
+def update(self):
+	# Update ball position
+	self.ball_1.pos += self.ball_1.vel
+	self.ball_2.pos += self.ball_2.vel
 	
 def ball_collision(ball_1, ball_2):
 		# Calculate velocity after collision between two balls
@@ -50,17 +54,9 @@ def ball_collision(ball_1, ball_2):
 	ball_1.vel = list(new_vel_1)
 	ball_2.vel = list(new_vel_2)
 
-def hit_wall(self, ball):
-
-
-
-
-def update(self):
-	# Update ball position
-	self.ball_1.pos += self.ball_1.vel
-	self.ball_2.pos += self.ball_2.vel
-
+def hit_wall(wall, ball):
 	
+
 
 	
 def check_hit(self):
