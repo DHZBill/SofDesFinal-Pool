@@ -7,7 +7,7 @@ import math
 
 class line(object):
 	# draw lines
-	def __init__(self, width = 1, color = pygame.Color('white'), table, start, end):
+	def __init__(self, table, start, end, width = 1, color = pygame.Color('white')):
 		self.width = width
 		self.color = color
 		self.table = table
@@ -70,8 +70,10 @@ class cue_hit:
 	
 	def check_hit(self):
 		# check if the cue will hit the cue ball
+		pass
 	def hit(self):
 		# return velocity of the cue ball after hit 
+		pass
 		
 if __name__ == '__main__':
 	main()
