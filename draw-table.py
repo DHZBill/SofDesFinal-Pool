@@ -17,7 +17,7 @@ class Table(object):
 	def checkRunning(self): # assumed to only need to run after a hit has been initialized
 		if self.running:
 			for ball in self.ballList:
-				if(ball.vel != [0, 0]):
+				if(ball.vel[0] != 0 or ball.vel[1] != 0):
 					return True
 			self.running = False
 		return False
