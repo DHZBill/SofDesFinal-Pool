@@ -5,8 +5,11 @@ This program's main modules are divided into a physics simulation, display, cali
 
 ### Authors:
 [Andrew Pan] (https://github.com/apan64)
+
 [Bill Du] (https://github.com/DHZBill)
+
 [Jeremy Garcia] (https://github.com/jag-123)
+
 [John Moreland] (https://github.com/johnmoreland)
 
 ### Getting Started:
