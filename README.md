@@ -1,6 +1,7 @@
 # Pool Assistant
 A handy dandy aide to up your pool game.
 This is a final project for Olin College's Software Design Spring 2016 course. 
+The code is compartmentalized into a physics simulation, display, video capture and detection modules. Objects include the billiards balls, the cue, and the table. 
 
 Dependencies:
 Pygame, math, numPy 
