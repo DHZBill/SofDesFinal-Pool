@@ -14,7 +14,7 @@ class Table(object):
 		self.ballList[0].vel = [x, y]
 		self.running = True
 
-	def checkRunning(self): # assumed to only need to run after a hit has been initialized
+	def checkRunning(self): # assumed to only need to run after a hit has been initialized: WHY DO WE HAVE THIS??
 		if self.running:
 			for ball in self.ballList:
 				if(ball.vel[0] != 0 or ball.vel[1] != 0):
@@ -47,9 +47,10 @@ if __name__ == '__main__':
 	ball1 = ball(200, 300, 0)
 	ball2 = ball(700, 290, 1)
 	ball3 = ball(900, 250, 2)
+	#ball4 = ball(800 ,230, 3)
 	t = Table([ball1, ball2, ball3])
-	t.initializeHit(100, 0) # test collision between balls
-	# t.initializeHit(100, 50) # test wall bouncing
+	t.initializeHit(100, 100) # test collision between balls
+	#t.initializeHit(100, 50) # test wall bouncing
 	t.draw_table()
 
 
