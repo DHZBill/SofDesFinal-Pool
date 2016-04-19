@@ -21,12 +21,16 @@ class ball:
 				return True
 		return False
 	def wallCollision(self, walls):
-		if self.pos[1] <= walls[0]:
+		if self.pos[1] - self.radius <= walls[0]:
 			self.vel[1] = self.vel[1] * -1
-		if self.pos[1] >= walls[1]:
+			self.pos[1] = walls[0] + self.radius + 1
+		if self.pos[1] + self.radius >= walls[1]:
 			self.vel[1] = self.vel[1] * -1
-		if self.pos[0] <= walls[2]:
+			self.pos[1] = walls[1] - self.radius - 1
+		if self.pos[0] - self.radius <= walls[2]:
 			self.vel[0] = self.vel[0] * -1
-		if self.pos[0] >= walls[3]:
+			self.pos[0] = walls[2] + self.radius + 1
+		if self.pos[0] + self.radius >= walls[3]:
 			self.vel[0] = self.vel[0] * -1
+			self.pos[0] = walls[3] - self.radius - 1
 		
