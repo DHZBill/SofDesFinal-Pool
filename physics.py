@@ -9,7 +9,8 @@
 # We do not actually have to implement physics in terms of "actual" physics (eg. forces, friction, etc.), but simply a simulation that will model similar effects.
 # Basically, we only need balls to have a "velocity" in x and y components that will decay over time
 import numpy as np
-import ball, math
+import math
+from ball import ball
 
 '''currently uneccessary'''
 # class line(object):
@@ -83,7 +84,7 @@ def run(ballList, walls, pockets):
 		ball = ballList[index]
 		if not ball.pstate: #only operate on non-pocketed balls
 			ball.wallCollision(walls)
-			ball.checkPocketed(pockets, 4)
+			ball.checkPocketed(pockets, 30)
 			if index < len(ballList) - 1: # ensures no out of index error by checking collisions for the last ball in the list
 				for ball2 in ballList[index + 1:]:
 					if(ball.checkCollision(ball2)):

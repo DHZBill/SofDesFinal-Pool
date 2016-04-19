@@ -18,6 +18,7 @@ class ball:
 				self.pocketed = True
 				self.pocketNum = p[2]
 				self.vel = [0, 0]
+				self.pos = [p[0], p[1]]
 				return True
 		return False
 	def wallCollision(self, walls):
