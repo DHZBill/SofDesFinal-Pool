@@ -2,22 +2,27 @@
 import math
 
 class ball:
-	def __init__(self, xpos, ypos, number, pocketed = False, pocketNum = 0, xv = 0, yv = 0, ballRadius = 20, mass = 1):
+	def __init__(self, xpos, ypos, number, pocketed = False, pocketNum = 0, xv = 0, yv = 0, ballRadius = 20, mass = 1, mag = 0):
 		self.pos = [xpos, ypos]
 		self.num = number
 		self.pstate = pocketed
 		self.pocket = pocketNum
-		self.vel = [xv, yv]
+		self.vel = [xv, yv] # unit vector
+		self.velMagnitude = mag
 		self.radius = ballRadius
 		self.mass = mass
 	def checkCollision(self, otherBall): # returns true if colliding with the other ball, else if no collision
+		if(self.pstate or otherBall.pstate):
+			return False
 		return math.sqrt((self.pos[0] - otherBall.pos[0])**2 + (self.pos[1] - otherBall.pos[1])**2) <= (self.radius * 2)
 	def checkPocketed(self, pocketList, pocketRadius):
 		for p in pocketList:
 			if math.sqrt((self.pos[0] - p[0])**2 + (self.pos[1] - p[1])**2) < (self.radius + pocketRadius):
-				self.pocketed = True
+				self.pstate = True
 				self.pocketNum = p[2]
 				self.vel = [0, 0]
+				self.velMagnitude = 0
+				self.pos = [p[0], p[1]]
 				return True
 		return False
 	def wallCollision(self, walls):

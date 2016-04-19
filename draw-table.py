@@ -11,7 +11,8 @@ class Table(object):
 		self.running = False
 
 	def initializeHit(self, x, y): # hit applied to cue ball, x and y are the "velocity" components that the cue ball will begin with
-		self.ballList[0].vel = [x, y]
+		self.ballList[0].velMagnitude = math.sqrt(x**2 + y**2)
+		self.ballList[0].vel = [x/self.ballList[0].velMagnitude, y/self.ballList[0].velMagnitude]
 		self.running = True
 
 	def checkRunning(self): # assumed to only need to run after a hit has been initialized: WHY DO WE HAVE THIS??
@@ -47,10 +48,18 @@ if __name__ == '__main__':
 	ball1 = ball(200, 300, 0)
 	ball2 = ball(700, 290, 1)
 	ball3 = ball(900, 250, 2)
+<<<<<<< HEAD
 	#ball4 = ball(800 ,230, 3)
 	t = Table([ball1, ball2, ball3])
 	t.initializeHit(100, 100) # test collision between balls
 	#t.initializeHit(100, 50) # test wall bouncing
+=======
+	ball4 = ball(800, 250, 3)
+	ball5 = ball(845, 150, 4)
+	t = Table([ball1, ball2, ball3, ball4, ball5])
+	t.initializeHit(200, 0) # test collision between balls
+	# t.initializeHit(100, 50) # test wall bouncing
+>>>>>>> 1d123c0d709cfb27c61fda0030a1a022c6a52469
 	t.draw_table()
 
 
