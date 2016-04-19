@@ -73,8 +73,13 @@ def ball_collision(ball_1, ball_2):
 	new_vel_1 = new_vel_1n + new_vel_1t
 	new_vel_2 = new_vel_2n + new_vel_2t
 
-	pos_1 += new_vel_1 * 0.2
-	pos_2 += new_vel_2 * 0.2
+	dist = math.sqrt(np.dot(pos_1 - pos_2, pos_1 - pos_2))
+
+	while dist <= (ball_1.radius + ball_2.radius):
+		pos_1 += new_vel_1 * 0.1
+		pos_2 += new_vel_2 * 0.1
+		dist = math.sqrt(np.dot(pos_1 - pos_2, pos_1 - pos_2))
+
 
 	return [list(new_vel_1), list(new_vel_2), pos_1, pos_2]
 
