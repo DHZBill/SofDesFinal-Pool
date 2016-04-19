@@ -31,20 +31,23 @@ from ball import ball
 def update(ball1):
 	# Update ball position
 	step = 0.2
-	if ball1.vel != [0,0]:
-		dvx =  abs(ball1.vel[0] / math.sqrt(ball1.vel[0]**2 + ball1.vel[1]**2) * step)
-		dvy =  abs(ball1.vel[1] / math.sqrt(ball1.vel[0]**2 + ball1.vel[1]**2) * step)
-		ball1.pos = [ball1.pos[0] + ball1.vel[0] * dvx, ball1.pos[1] + ball1.vel[1] * dvy] # updating ball positions based on velocity
-	if abs(ball1.vel[0]) > 0:
-		if abs(ball1.vel[0]) < dvx:
-			ball1.vel[0] = 0
-		else:
-			ball1.vel[0] += dvx if ball1.vel[0] < 0 else (-1 * dvx) # decreasing velocity
-	if abs(ball1.vel[1]) > 0:
-		if abs(ball1.vel[1]) < dvy:
-			ball1.vel[1] = 0
-		else:
-			ball1.vel[1] += dvy if ball1.vel[1] < 0 else (-1 * dvy)
+	if ball1.velMagnitude != 0:
+		# dvx =  abs(ball1.vel[0] / math.sqrt(ball1.vel[0]**2 + ball1.vel[1]**2) * step)
+		# dvy =  abs(ball1.vel[1] / math.sqrt(ball1.vel[0]**2 + ball1.vel[1]**2) * step)
+		ball1.pos = [ball1.pos[0] + ball1.vel[0] * ball1.velMagnitude * step, ball1.pos[1] + ball1.vel[1] * ball1.velMagnitude * step] # updating ball positions based on velocity
+	# if abs(ball1.vel[0]) > 0:
+	# 	if abs(ball1.vel[0]) < dvx:
+	# 		ball1.vel[0] = 0
+	# 	else:
+	# 		ball1.vel[0] += dvx if ball1.vel[0] < 0 else (-1 * dvx) # decreasing velocity
+	# if abs(ball1.vel[1]) > 0:
+	# 	if abs(ball1.vel[1]) < dvy:
+	# 		ball1.vel[1] = 0
+	# 	else:
+	# 		ball1.vel[1] += dvy if ball1.vel[1] < 0 else (-1 * dvy)
+	ball1.velMagnitude -= step
+	if(ball1.velMagnitude < 0):
+		ball1.velMagnitude = 0
 	return ball1
 
 def ball_collision(ball_1, ball_2): 
@@ -53,8 +56,8 @@ def ball_collision(ball_1, ball_2):
 	m2 = ball_2.mass
 	pos_1 = np.array(ball_1.pos)
 	pos_2 = np.array(ball_2.pos)
-	vel_1 = np.array(ball_1.vel)
-	vel_2 = np.array(ball_2.vel)
+	vel_1 = np.array([ball_1.vel[0] * ball_1.velMagnitude, ball_1.vel[1] * ball_1.velMagnitude])
+	vel_2 = np.array([ball_2.vel[0] * ball_2.velMagnitude, ball_2.vel[1] * ball_2.velMagnitude])
 
 	n = pos_2 - pos_1
 	un = n / math.sqrt(np.dot(n,n))
@@ -93,7 +96,11 @@ def run(ballList, walls, pockets):
 			if index < len(ballList) - 1: # ensures no out of index error by checking collisions for the last ball in the list
 				for ball2 in ballList[index + 1:]:
 					if(ball.checkCollision(ball2)):
-						ball.vel, ball2.vel, ball.pos, ball2.pos = ball_collision(ball, ball2)
+						vel1, vel2, ball.pos, ball2.pos = ball_collision(ball, ball2)
+						ball.velMagnitude = math.sqrt(vel1[0]**2 + vel1[1]**2)
+						ball.vel = [vel1[0]/ball.velMagnitude, vel1[1]/ball.velMagnitude]
+						ball2.velMagnitude = math.sqrt(vel2[0]**2 + vel2[1]**2)
+						ball2.vel = [vel2[0]/ball2.velMagnitude, vel2[1]/ball2.velMagnitude]
 	for ball in ballList:
 		update(ball)
 	return ballList
