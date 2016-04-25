@@ -48,18 +48,11 @@ if __name__ == '__main__':
 	ball1 = ball(200, 300, 0)
 	ball2 = ball(700, 290, 1)
 	ball3 = ball(900, 250, 2)
-<<<<<<< HEAD
-	#ball4 = ball(800 ,230, 3)
-	t = Table([ball1, ball2, ball3])
-	t.initializeHit(100, 100) # test collision between balls
-	#t.initializeHit(100, 50) # test wall bouncing
-=======
 	ball4 = ball(800, 250, 3)
 	ball5 = ball(845, 150, 4)
 	t = Table([ball1, ball2, ball3, ball4, ball5])
 	t.initializeHit(200, 0) # test collision between balls
 	# t.initializeHit(100, 50) # test wall bouncing
->>>>>>> 1d123c0d709cfb27c61fda0030a1a022c6a52469
 	t.draw_table()
 
 
