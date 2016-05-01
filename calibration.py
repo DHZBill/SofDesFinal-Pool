@@ -101,5 +101,6 @@ while True:
     #press esc to exit
     key = cv2.waitKey(10)
     if key == 27:
+        raise RuntimeError('User escaped the four-point calibration process')
         break
 cv2.destroyAllWindows()
