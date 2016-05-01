@@ -9,6 +9,8 @@ Credits: Code is adapted from Adrian Rosebrock's "4 point openCV Example"
 import numpy as np
 import cv2
 
+ref_pts = [] # global list of corner points
+
 def order_points(pts):
     # initialzie a list of coordinates that will be ordered
     # such that the first entry in the list is the top-left,
@@ -70,37 +72,44 @@ def four_point_transform(image, pts):
     # return the warped image
     return warped
 
-ref_pts = []
 def store_points(event,x,y,flags,param):
     if event == cv2.EVENT_LBUTTONDOWN:
         global ref_pts
         coords = (x, y)
         ref_pts.append(coords)
 
-# set input image
-img = cv2.imread('pool_pic.JPG')
+def calibrate_interface(file_name):
+    '''
+    Runs the four-point click calibration process.
+    Click in order: top-left, top-right, bottom-right, bottom-left
 
-# initialize the window and set interaction function
-cv2.namedWindow('original')
-cv2.setMouseCallback('original', store_points)
+    Inputs:
+    file_name: a string that points to the image used for specifying the corners
+    '''
 
-while True:
-    # display the input image
-    cv2.imshow('original',img)
+    img = cv2.imread(file_name) # set input image
+    # initialize the window and set interaction function
+    cv2.namedWindow('original')
+    cv2.setMouseCallback('original', store_points)
 
-    # wait until there have been 4 clicks
-    if len(ref_pts) > 3:
-        pts = np.array(ref_pts)
-        warped = four_point_transform(img, pts)
+    while True:
+        # display the input image
+        cv2.imshow('original',img)
 
-        #display the transformed image
-        cv2.imshow('warped', warped)
-        cv2.waitKey(0)
-        break
+        # wait until there have been 4 clicks
+        if len(ref_pts) > 3:
+            pts = np.array(ref_pts)
+            warped = four_point_transform(img, pts)
+            #display the transformed image
+            cv2.imshow('warped', warped)
+            cv2.waitKey(0)
+            break
 
-    #press esc to exit
-    key = cv2.waitKey(10)
-    if key == 27:
-        raise RuntimeError('User escaped the four-point calibration process')
-        break
-cv2.destroyAllWindows()
+        #press esc to exit
+        key = cv2.waitKey(10)
+        if key == 27:
+            raise RuntimeError('User escaped the four-point calibration process')
+            break
+    cv2.destroyAllWindows
+
+calibrate_interface('pool_pic.JPG')
