@@ -15,21 +15,21 @@ class Table(object):
 		self.ballList[0].vel = [x/self.ballList[0].velMagnitude, y/self.ballList[0].velMagnitude]
 		self.running = True
 
-	def checkRunning(self): # assumed to only need to run after a hit has been initialized: WHY DO WE HAVE THIS??
+	def checkRunning(self): # assumed to only need to run after a hit has been initialized: WHY DO WE HAVE THIS?? cause i'm a creative genius, there's just no other way to word it
 		if self.running:
 			for ball in self.ballList:
-				if(ball.vel[0] != 0 or ball.vel[1] != 0):
+				if(ball.velMagnitude != 0):
 					return True
 			self.running = False
 		return False
 
 	def draw_table(self):
-		if(not self.checkRunning):
+		if(not self.checkRunning()):
 			print("Nothing is moving you dingus")
 			return
 		screen = pygame.display.set_mode((1579,873))
 		table = pygame.image.load('pool_table.png')
-		while self.checkRunning:
+		while self.checkRunning():
 			self.ballList = physics.run(self.ballList, self.walls, self.pockets)
 			screen.blit(table,(0,0))
 			for ball in self.ballList:
@@ -40,9 +40,34 @@ class Table(object):
 					pygame.quit()
 					sys.exit()
 			pygame.display.update()
-			pygame.time.wait(10)
+		pygame.time.wait(500)
 		pygame.quit()
 		sys.exit()
+
+	def draw_projection(self):
+		if(not self.checkRunning()):
+			print("Nothing is moving you dingus")
+			return
+		screen = pygame.display.set_mode((1579,873))
+		table = pygame.image.load('pool_table.png')
+		screen = pygame.display.set_mode((1579,873))
+		table = pygame.image.load('pool_table.png')
+		screen.blit(table,(0,0))
+		for ball in self.ballList:
+			pygame.draw.circle(screen, self.colors[ball.num], [int(x) for x in ball.pos], ball.radius)
+		pygame.display.update()
+		for x in range(100):
+			self.ballList = physics.run(self.ballList, self.walls, self.pockets)
+			for ball in self.ballList:
+				pygame.draw.circle(screen, self.colors[ball.num], [int(x) for x in ball.pos], 1)
+		pygame.display.update()
+		while(True):
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					running = False
+					pygame.quit()
+					sys.exit()
+
 
 if __name__ == '__main__':
 	ball1 = ball(200, 300, 0)
@@ -53,7 +78,7 @@ if __name__ == '__main__':
 	t = Table([ball1, ball2, ball3, ball4, ball5])
 	t.initializeHit(200, 0) # test collision between balls
 	# t.initializeHit(100, 50) # test wall bouncing
-	t.draw_table()
-
+	# t.draw_table()
+	t.draw_projection()
 
 

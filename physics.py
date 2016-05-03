@@ -31,6 +31,7 @@ from ball import ball
 def update(ball1):
 	# Update ball position
 	step = 0.2
+	slow = 1
 	if ball1.velMagnitude != 0:
 		# dvx =  abs(ball1.vel[0] / math.sqrt(ball1.vel[0]**2 + ball1.vel[1]**2) * step)
 		# dvy =  abs(ball1.vel[1] / math.sqrt(ball1.vel[0]**2 + ball1.vel[1]**2) * step)
@@ -45,7 +46,7 @@ def update(ball1):
 	# 		ball1.vel[1] = 0
 	# 	else:
 	# 		ball1.vel[1] += dvy if ball1.vel[1] < 0 else (-1 * dvy)
-	ball1.velMagnitude -= step
+	ball1.velMagnitude -= slow
 	if(ball1.velMagnitude < 0):
 		ball1.velMagnitude = 0
 	return ball1
