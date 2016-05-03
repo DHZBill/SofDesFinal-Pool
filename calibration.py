@@ -112,4 +112,5 @@ def calibrate_interface(file_name):
             break
     cv2.destroyAllWindows
 
-calibrate_interface('pool_pic.JPG')
+if __name__ == '__main__':
+    calibrate_interface('pool_pic.JPG')
