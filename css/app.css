@@ -3,6 +3,7 @@
   min-height: 100%;
   width: 100%;
   padding-top: 20vh;
+  overflow: hidden;
 }
 
 .wrapper {
@@ -30,7 +31,7 @@
 #title {
   font-family: 'Roboto', sans-serif;
   color:#FFF;
-  font-size: 7em;
+  font-size: 6rem;
   text-align: center;
   font-weight: 400;
 }
@@ -43,7 +44,7 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   color:#FFF;
-  font-size:3.5em;
+  font-size:3rem;
   text-align: center;
   width: 50%;
   margin-top: -25px;
