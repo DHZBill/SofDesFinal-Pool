@@ -97,12 +97,15 @@
   box-shadow: inset 0px 10px 30px -5px rgba(0,0,0,0.75);
 }
 
+.demo-row{
+  padding: 25px 0;
+}
+
 .demo-img{
   text-align: center;
   display: inline-block;
   border: 3px solid #424242;
   border-radius: 25px;
-  margin-top: 25px;
 }
 
 .demo-text{
