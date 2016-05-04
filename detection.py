@@ -42,25 +42,23 @@ class Image_Detection(object):
 		minLineLength = 500
 		maxLineGap = 10
 		lines = cv2.HoughLinesP(edges,1,np.pi/180,50,minLineLength,maxLineGap)
+		print lines
 		for x1,y1,x2,y2 in lines[0]:
 		    cv2.line(img,(x1,y1),(x2,y2),(0,255,0),2)
 
 		cv2.imshow('circles.jpg',img)
 
-		# lines = cv2.HoughLines(edges,1,np.pi/180,200)
-		# for rho,theta in lines[0]:
-		#     a = np.cos(theta)
-		#     b = np.sin(theta)
-		#     x0 = a*rho
-		#     y0 = b*rho
-		#     x1 = int(x0 + 1000*(-b))
-		#     y1 = int(y0 + 1000*(a))
-		#     x2 = int(x0 - 1000*(-b))
-		#     y2 = int(y0 - 1000*(a))
+		# img = cv2.imread(image_name)
+		# imgray = cv2.imread(image_name,0)
+		# img_filt = cv2.medianBlur(imgray, 7)
+		# img_th = cv2.adaptiveThreshold(img_filt,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+		# print img_filt
+		# #contours, hierarchy = cv2.findContours(img_th, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-		#     cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
+		# #cv2.drawContours(img, contours, -1, (255,120,255), 1)
+		# #cv2.imwrite('pool_table_contours.jpg', img)
+		# cv2.imwrite('pool_table_contours.jpg', img_th)
 
-		# cv2.imshow('circles.jpg',img)
 
 if __name__ == '__main__':
 	I = Image_Detection()
