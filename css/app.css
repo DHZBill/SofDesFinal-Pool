@@ -1,6 +1,16 @@
 /****** GENERAL ******/
 .section {
   min-height: 100%;
+  width: 100%;
+  padding-top: 20vh;
+}
+
+.wrapper {
+  max-width: 960;
+}
+
+.debug {
+  background-color: red;
 }
 
 /****** HEADER ******/
@@ -8,8 +18,36 @@
 
 
 /****** LANDING ******/
+.landing {
+  background-image: url("../img/pooltablebg.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  -webkit-filter: grayscale(40%); /* Chrome, Safari, Opera */
+  filter: grayscale(40%);
+  text-align: center;
+}
 
+#title {
+  font-family: 'Roboto', sans-serif;
+  color:#FFF;
+  font-size: 7em;
+  text-align: center;
+  font-weight: 400;
+}
 
+.subtitlebounds {
+}
+
+#subtitle {
+  display:inline-block;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color:#FFF;
+  font-size:3.5em;
+  text-align: center;
+  width: 50%;
+  margin-top: -25px;
+}
 
 /****** DEMO ******/
 
