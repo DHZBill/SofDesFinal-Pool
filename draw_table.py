@@ -67,6 +67,9 @@ class Table(object):
 					running = False
 					pygame.quit()
 					sys.exit()
+	def initializeHitFromCue(cue):
+		# start a hit from the cue point
+		pass
 
 
 if __name__ == '__main__':
