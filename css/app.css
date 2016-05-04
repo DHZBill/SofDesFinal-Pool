@@ -20,7 +20,7 @@
 /****** LANDING ******/
 .landing {
   background-image: url("../img/pooltablebg.jpg");
-  background-size: 100% auto;
+  background-size: cover;
   background-repeat: no-repeat;
   -webkit-filter: grayscale(40%); /* Chrome, Safari, Opera */
   filter: grayscale(40%);
