@@ -59,8 +59,42 @@ class Image_Detection(object):
 		# #cv2.imwrite('pool_table_contours.jpg', img)
 		# cv2.imwrite('pool_table_contours.jpg', img_th)
 
+	def calibrate_interface(self,file_name):
+	    '''
+	    Runs the four-point click calibration process.
+	    Click in order: top-left, top-right, bottom-right, bottom-left
+
+	    Inputs:
+	    file_name: a string that points to the image used for specifying the corners
+	    '''
+
+	    img = cv2.imread(file_name) # set input image
+	    # initialize the window and set interaction function
+	    cv2.namedWindow('original')
+	    cv2.setMouseCallback('original', store_points)
+
+	    while True:
+	        # display the input image
+	        cv2.imshow('original',img)
+
+	        # wait until there have been 4 clicks
+	        if len(ref_pts) > 3:
+	            pts = np.array(ref_pts)
+	            warped = four_point_transform(img, pts)
+	            #display the transformed image
+	            cv2.imshow('warped', warped)
+	            cv2.waitKey(0)
+	            break
+
+	        #press esc to exit
+	        key = cv2.waitKey(10)
+	        if key == 27:
+	            raise RuntimeError('User escaped the four-point calibration process')
+	            break
+	    cv2.destroyAllWindows
 
 if __name__ == '__main__':
 	I = Image_Detection()
-	I.wall_finder('warped.jpg')
+	#I.wall_finder('warped.jpg')
+	I.calibrate_interface('pool_pic.JPG')
 	I.write_circles('warped.jpg')
