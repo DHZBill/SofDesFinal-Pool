@@ -18,7 +18,10 @@ This program's main modules are divided into a physics simulation, display, cali
 Pygame, math, numPy 
 
 #### How to run the code:
-*Coming soon*
+Set up your webcam so that it has view of the entire pool table.
+Run main.py
+Click the four corner pockets in the order (top-left, top-right, bottom-right, bottom-left)
+Click the four walls in the order (left, top, right bottom)
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:

@@ -78,30 +78,29 @@ def store_points(event,x,y,flags,param):
         coords = (x, y)
         ref_pts.append(coords)
 
-def calibrate_interface(file_name):
+def calibrate_interface(img):
     '''
     Runs the four-point click calibration process.
     Click in order: top-left, top-right, bottom-right, bottom-left
 
-    Inputs:
-    file_name: a string that points to the image used for specifying the corners
     '''
 
-    img = cv2.imread(file_name) # set input image
     # initialize the window and set interaction function
-    cv2.namedWindow('original')
-    cv2.setMouseCallback('original', store_points)
+    if type(img) == str:
+        img = cv2.imread(img)
+    cv2.namedWindow('Corner calibration')
+    cv2.setMouseCallback('Corner calibration', store_points)
 
     while True:
         # display the input image
-        cv2.imshow('original',img)
+        cv2.imshow('Corner calibration',img)
 
         # wait until there have been 4 clicks
         if len(ref_pts) > 3:
             pts = np.array(ref_pts)
             warped = four_point_transform(img, pts)
             #display the transformed image
-            cv2.imshow('warped', warped)
+            cv2.imshow('Warped image', warped)
             cv2.waitKey(0)
             break
 
@@ -111,6 +110,11 @@ def calibrate_interface(file_name):
             raise RuntimeError('User escaped the four-point calibration process')
             break
     cv2.destroyAllWindows
+    return (img, warped, pts)
 
 if __name__ == '__main__':
-    calibrate_interface('pool_pic.JPG')
+    cap = cv2.VideoCapture(0)
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+    img, warped, pts = calibrate_interface(frame)
+    print pts
