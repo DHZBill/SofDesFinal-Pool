@@ -5,7 +5,10 @@ import cv2
 
 class Image_Detection(object):
 	def __init__(self):
-		self.ball_list=[]
+		self.ball_list = []
+		self.ref_pts = []
+		self.lr_walls = []
+		self.tb_walls = []
 
 	def write_circles(self,image_name):
 		img = cv2.imread(image_name,0)
@@ -34,67 +37,30 @@ class Image_Detection(object):
 		cv2.destroyAllWindows()
 		return self.ball_list
 
-	def wall_finder(self,image_name):
-		img = cv2.imread(image_name)
-		gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-		edges = cv2.Canny(gray,10,200)
+	def store_points(self,event,x,y,flags,param):
+	    if event == cv2.EVENT_LBUTTONDOWN:
+	        coords = (x, y)
 
-		minLineLength = 500
-		maxLineGap = 10
-		lines = cv2.HoughLinesP(edges,1,np.pi/180,50,minLineLength,maxLineGap)
-		print lines
-		for x1,y1,x2,y2 in lines[0]:
-		    cv2.line(img,(x1,y1),(x2,y2),(0,255,0),2)
+	        if len(self.ref_pts) == 3:
+	        	cv2.destroyAllWindows()
+
+	        if len(self.ref_pts) % 2 == 1:
+	        	self.ref_pts.append(coords)
+	        	self.tb_walls.append(coords[1])
+	        else:
+	        	self.ref_pts.append(coords)
+	        	self.lr_walls.append(coords[0])
+
+	def wall_finder(self,image_name):
+		'starting from left wall, click on wall and move counterclockwise around the table'
+		img = cv2.imread(image_name)
 
 		cv2.imshow('circles.jpg',img)
-
-		# img = cv2.imread(image_name)
-		# imgray = cv2.imread(image_name,0)
-		# img_filt = cv2.medianBlur(imgray, 7)
-		# img_th = cv2.adaptiveThreshold(img_filt,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
-		# print img_filt
-		# #contours, hierarchy = cv2.findContours(img_th, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-
-		# #cv2.drawContours(img, contours, -1, (255,120,255), 1)
-		# #cv2.imwrite('pool_table_contours.jpg', img)
-		# cv2.imwrite('pool_table_contours.jpg', img_th)
-
-	def calibrate_interface(self,file_name):
-	    '''
-	    Runs the four-point click calibration process.
-	    Click in order: top-left, top-right, bottom-right, bottom-left
-
-	    Inputs:
-	    file_name: a string that points to the image used for specifying the corners
-	    '''
-
-	    img = cv2.imread(file_name) # set input image
-	    # initialize the window and set interaction function
-	    cv2.namedWindow('original')
-	    cv2.setMouseCallback('original', store_points)
-
-	    while True:
-	        # display the input image
-	        cv2.imshow('original',img)
-
-	        # wait until there have been 4 clicks
-	        if len(ref_pts) > 3:
-	            pts = np.array(ref_pts)
-	            warped = four_point_transform(img, pts)
-	            #display the transformed image
-	            cv2.imshow('warped', warped)
-	            cv2.waitKey(0)
-	            break
-
-	        #press esc to exit
-	        key = cv2.waitKey(10)
-	        if key == 27:
-	            raise RuntimeError('User escaped the four-point calibration process')
-	            break
-	    cv2.destroyAllWindows
+		cv2.setMouseCallback('circles.jpg', self.store_points)
 
 if __name__ == '__main__':
 	I = Image_Detection()
-	#I.wall_finder('warped.jpg')
-	I.calibrate_interface('pool_pic.JPG')
+	I.wall_finder('warped.jpg')
 	I.write_circles('warped.jpg')
+	print 'left and right walls:',I.lr_walls
+	print 'top and bottom walls:',I.tb_walls
