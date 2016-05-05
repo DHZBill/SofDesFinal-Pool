@@ -74,8 +74,8 @@ class Table(object):
 		yspace = np.linspace(cue.point1.y, cue.point2.y, max(int(dx), int(dy)))
 		for i in range(xspace): # double check this later to make sure these line up with points on the line
 			if(math.sqrt((xspace[i] - cueBall.pos[0])**2 + (yspace[i] - cueBall.pos[1])**2) < (cueBall.radius)):
-				
-
+				t.initializeHit(dx, dy)
+				break
 
 if __name__ == '__main__':
 	ball1 = ball(200, 300, 0)
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 	ball4 = ball(800, 250, 3)
 	ball5 = ball(845, 150, 4)
 	t = Table([ball1, ball2, ball3, ball4, ball5])
-	t.initializeHit(200, 0) # test collision between balls
+	t.initializeHit(-200, 0) # test collision between balls
 	# t.initializeHit(100, 50) # test wall bouncing
 	# t.draw_table()
 	t.draw_projection()

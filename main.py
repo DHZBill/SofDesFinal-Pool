@@ -30,5 +30,5 @@ def activeProjection(): #input is a table object
 				sys.exit()
 
 if __name__ == '__main__': # so this is currently pseudo-code, and we will need to define these explicit functions that will return specific values
-	newImage, oldImage = calibration.calibrateVideoFeed # need a function that will allow for calibration of video feed and return both the sheared and original images
+	newImage, oldImage, points = calibration.calibrateVideoFeed # need a function that will allow for calibration of video feed and return both the sheared and original images
 	activeProjection()
