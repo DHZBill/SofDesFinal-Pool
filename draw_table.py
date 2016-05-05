@@ -65,13 +65,18 @@ class Table(object):
 					running = False
 					pygame.quit()
 					sys.exit()
-	def initializeHitFromCue(cue):
+	def initializeHitFromCue(cue1, cue2):
 		# start a hit from the cue point
+		# cueBall = self.ballList[0]
+		# dx = cue.point1.x - cue.point2.x
+		# dy = cue.point1.y - cue.point2.y
+		# xspace = np.linspace(cue.point1.x, cue.point2.x, max(int(dx), int(dy)))
+		# yspace = np.linspace(cue.point1.y, cue.point2.y, max(int(dx), int(dy)))
 		cueBall = self.ballList[0]
-		dx = cue.point1.x - cue.point2.x
-		dy = cue.point1.y - cue.point2.y
-		xspace = np.linspace(cue.point1.x, cue.point2.x, max(int(dx), int(dy)))
-		yspace = np.linspace(cue.point1.y, cue.point2.y, max(int(dx), int(dy)))
+		dx = cue1[0] - cue2[0]
+		dy = cue1[1] - cue2[1]
+		xspace = np.linspace(cue1[0], cue2[0], max(int(dx), int(dy)))
+		yspace = np.linspace(cue1[1], cue2[1], max(int(dx), int(dy)))
 		for i in range(xspace): # double check this later to make sure these line up with points on the line
 			if(math.sqrt((xspace[i] - cueBall.pos[0])**2 + (yspace[i] - cueBall.pos[1])**2) < (cueBall.radius)):
 				t.initializeHit(dx, dy)
