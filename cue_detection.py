@@ -3,6 +3,7 @@ import numpy as np
 import math
 
 class cue(object):
+	""" Create a new class to represent the cue"""
 	def __init__(self, position, direction):
 		self.position = position
 		self.direction = direction
@@ -43,13 +44,8 @@ def find_object(frame, mask):
 def Track_cue(frame):
 	""" Track colored points and get their central positions
 	Now using blue and yellow."""
-	# camera_feed = cv2.VideoCapture(0)
 
-	# while(1):
-
-	# 	_,frame = camera_feed.read()
-
-		#Define the threshold for finding blue and yellow object with hsv
+	#Define the threshold for finding blue and yellow object with hsv
 	lower_blue = np.array([90,50,50])
 	upper_blue = np.array([110,255,255])
 
@@ -61,32 +57,19 @@ def Track_cue(frame):
 	mask_yellow =create_mask(frame, lower_yellow, upper_yellow)        
 	mask = mask_blue + mask_yellow
 	
-	#find biggest colored objects and get their positions
+	# find biggest colored objects and get their positions
 	blue = find_object(frame, mask_blue)
 	yellow = find_object(frame, mask_yellow)
+	# find the position of two points
 	if blue != None and yellow !=None :
 		x,y,w,h = blue
 		a,b,c,d = yellow
-	# find the two points
 		point1 = np.array([x+w/2, y+h/2])
 		point2 = np.array([a+c/2, b+d/2])
 		pos = point1
 		n = point1-point2
 		direction = n / math.sqrt(np.dot(n,n))
-		# print pos, direction
-		# CUE = cue(pos,direction)
 		return point1, point2
 
-# 	#Show the original camera feed with a bounding box overlayed 
-# 	cv2.imshow('frame',frame)
-# 	#Show the contours in a seperate window
-# 	cv2.imshow('mask',mask)
-# 	#Use this command to prevent freezes in the feed
-# # 	k = cv2.waitKey(5) & 0xFF
-# # 	#If escape is pressed close all windows
-# # 	if k == 27:
-# # 		break
-
-# # cv2.destroyAllWindows() 
 
 	
