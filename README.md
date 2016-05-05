@@ -1,4 +1,5 @@
 # Pool Assistant
+Readd more on our [website] (https://dhzbill.github.io/SofDesFinal-Pool/)
 A handy dandy aide to up your pool game.
 This is a final project for Olin College's Software Design course (Spring 2016). 
 This program's main modules are divided into a physics simulation, display, calibration, video capture and detection. Main objects include the billiards balls, the cue, and the table. 
