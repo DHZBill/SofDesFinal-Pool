@@ -25,10 +25,7 @@ def ball_collision(ball_1, ball_2):
 	vel_2 = np.array([ball_2.vel[0] * ball_2.velMagnitude, ball_2.vel[1] * ball_2.velMagnitude])
 	# calculate the distance between 2 balls in vector, and get its direction.
 	n = pos_2 - pos_1
-	thing = int(math.sqrt(np.dot(n,n)))
-	if thing == 0:
-		return [ball_1.vel, ball_2.vel, ball_1.pos, ball_2.pos]
-	un = n / thing
+	un = n / math.sqrt(np.dot(n,n))
 	ut = np.array(-un[1],un[0])
 	# calculate the magnitude of velocity on each direction 
 	vel_1n = np.dot(un, vel_1) # use numpy's dot, not vdot
@@ -67,9 +64,9 @@ def run(ballList, walls, pockets):
 					if(ball.checkCollision(ball2)): # if collision happens, run collision and update ball status.
 						vel1, vel2, ball.pos, ball2.pos = ball_collision(ball, ball2)
 						ball.velMagnitude = math.sqrt(vel1[0]**2 + vel1[1]**2)
-						ball.vel = [vel1[0]/ball.velMagnitude, vel1[1]/ball.velMagnitude] if ball.velMagnitude > 0 else [0, 0]
+						ball.vel = [vel1[0]/ball.velMagnitude, vel1[1]/ball.velMagnitude]
 						ball2.velMagnitude = math.sqrt(vel2[0]**2 + vel2[1]**2)
-						ball2.vel = [vel2[0]/ball2.velMagnitude, vel2[1]/ball2.velMagnitude]if ball2.velMagnitude > 0 else [0, 0]
+						ball2.vel = [vel2[0]/ball2.velMagnitude, vel2[1]/ball2.velMagnitude]
 	for ball in ballList:
 		update(ball)
 	return ballList
