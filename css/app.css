@@ -109,6 +109,32 @@
 /****** INSTALL ******/
 
 .install{
+  background-image: url("../img/pool-table-wallpaper.jpg");
+  background-size: cover;
+  -webkit-filter: grayscale(35%); /* Chrome, Safari, Opera */
+  filter: grayscale(35%);
+}
+
+.instruction-bg{
+  display: inline-block;
+
+}
+
+.instruction-text{
+  margin: 10px;
+  margin-top:50px;
+  color:#424242;
+  text-align: left;
+  opacity:1.0;
+  padding: 40px;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.8);;
+  display:inline-block;
+}
+
+/****** CREDITS ******/
+
+.credits{
 
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#baf4f0+0,edf4f4+100 */
   background: #baf4f0; /* Old browsers */
@@ -117,16 +143,3 @@
   background: linear-gradient(to bottom,  #baf4f0 0%,#edf4f4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#baf4f0', endColorstr='#edf4f4',GradientType=0 ); /* IE6-9 */
 }
-
-.number-list{
-  display: inline-block;
-  text-align: right;
-  padding: 0 15px;
-}
-
-.instruction-row{
-  margin-top:50px;
-  margin-right: 10px;
-}
-
-/****** CREDITS ******/
