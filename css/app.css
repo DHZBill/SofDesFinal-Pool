@@ -121,7 +121,6 @@
 }
 
 .instruction-text{
-  margin: 10px;
   margin-top:50px;
   color:#424242;
   text-align: left;
@@ -142,4 +141,14 @@
   background: -webkit-linear-gradient(top,  #baf4f0 0%,#edf4f4 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  #baf4f0 0%,#edf4f4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#baf4f0', endColorstr='#edf4f4',GradientType=0 ); /* IE6-9 */
+}
+
+.timeline{
+  margin-top: 50px;
+  text-align: left;
+}
+
+.creators{
+  margin-top: 50px;
+  text-align: center;
 }
