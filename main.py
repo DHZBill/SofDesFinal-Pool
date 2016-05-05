@@ -6,7 +6,11 @@ from detection import Image_Detection as ImD
 import cue_detection
 walls = {'top' : 84, 'bottom' : 789, 'left' : 84, 'right' : 1494}
 
-def activeProjection(): #input is a table object
+def activeProjection():
+	'''
+	This is the main function that incorporates our individual modules.  After calibrating an image and detecting the objects within the image, it outputs the balls to our simulation
+	to display projected hits on the cue ball
+	'''
 	# cap = cv2.VideoCapture(0)
 	# ret, frame = cap.read()
 	img, warped, pts = calibration.calibrate_interface('pool_pic.JPG') # returns the original image, the sheared image, and the points used to warp the image
@@ -45,6 +49,9 @@ def activeProjection(): #input is a table object
 				sys.exit()
 
 def normalizeBallsToWalls(I, ballList):
+	'''
+	Receives an input of ball positions detected from an image and properly maps them to a pool image table based on wall positions
+	'''
 	return [ball(int(float(b.pos[0] - I.lr_walls[0]) / (I.lr_walls[1] - I.lr_walls[0]) * (walls['right'] - walls['left']) + walls['left']), int(float(b.pos[1] - I.tb_walls[0]) / (I.tb_walls[1] - I.tb_walls[0]) * (walls['bottom'] - walls['top']) + walls['top']), b.num) for b in ballList]
 
 if __name__ == '__main__': # so this is currently pseudo-code, and we will need to define these explicit functions that will return specific values
