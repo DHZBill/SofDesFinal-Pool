@@ -28,7 +28,7 @@ class Image_Detection(object):
 		    # draw the center of the circle
 		    cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
 		    #ball_list
-		    self.ball_list.append([i[0],i[1],count])
+		    self.ball_list.append(ball(i[0],i[1],count))
 		    #counter
 		    count+=1
 
