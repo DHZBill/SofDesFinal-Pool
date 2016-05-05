@@ -11,12 +11,12 @@ class Image_Detection(object):
 		self.tb_walls = []
 
 	def write_circles(self,img):
-		# img = cv2.imread(image_name,0)
-		cimg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-		cimg = cv2.medianBlur(cimg,5)
-		cimg = cv2.cvtColor(cimg,cv2.COLOR_GRAY2BGR)
+		# img = cv2.imread(img,0)
+		img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		img = cv2.medianBlur(img,5)
+		cimg = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
 
-		circles = cv2.HoughCircles(cimg,cv2.cv.CV_HOUGH_GRADIENT,1,30,
+		circles = cv2.HoughCircles(img,cv2.cv.CV_HOUGH_GRADIENT,1,30,
 		                            param1=50,param2=23,minRadius=0,maxRadius=126)
 
 		circles = np.uint16(np.around(circles))
@@ -54,7 +54,7 @@ class Image_Detection(object):
 
 	def wall_finder(self,img):
 		'starting from left wall, click on wall and move clockwise around the table'
-		# img = cv2.imread(image_name)
+		# img = cv2.imread(img)
 
 		cv2.imshow('walls',img)
 		cv2.setMouseCallback('walls', self.store_points)
