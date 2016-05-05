@@ -40,57 +40,53 @@ def find_object(frame, mask):
 	else:
 		return None
 
-def Track_cue():
+def Track_cue(frame):
 	""" Track colored points and get their central positions
 	Now using blue and yellow."""
-	camera_feed = cv2.VideoCapture(0)
+	# camera_feed = cv2.VideoCapture(0)
 
-	while(1):
+	# while(1):
 
-		_,frame = camera_feed.read()
+	# 	_,frame = camera_feed.read()
 
 		#Define the threshold for finding blue and yellow object with hsv
-		lower_blue = np.array([90,50,50])
-		upper_blue = np.array([110,255,255])
+	lower_blue = np.array([90,50,50])
+	upper_blue = np.array([110,255,255])
 
-		lower_yellow = np.array([20,100,100])
-		upper_yellow = np.array([30,255, 255])
+	lower_yellow = np.array([20,100,100])
+	upper_yellow = np.array([30,255, 255])
 
-		# create masks
-		mask_blue = create_mask(frame,lower_blue, upper_blue)
-		mask_yellow =create_mask(frame, lower_yellow, upper_yellow)        
-		mask = mask_blue + mask_yellow
-		
-		#find biggest colored objects and get their positions
-		blue = find_object(frame, mask_blue)
-		yellow = find_object(frame, mask_yellow)
-		if blue != None and yellow !=None :
-			x,y,w,h = blue
-			a,b,c,d = yellow
-		# find the two points
-			point1 = np.array([x+w/2, y+h/2])
-			point2 = np.array([a+c/2, b+d/2])
-			pos = point1
-			n = point1-point2
-			direction = n / math.sqrt(np.dot(n,n))
-			# print pos, direction
-			CUE = cue(pos,direction)
-			print CUE.position, CUE.direction
+	# create masks
+	mask_blue = create_mask(frame,lower_blue, upper_blue)
+	mask_yellow =create_mask(frame, lower_yellow, upper_yellow)        
+	mask = mask_blue + mask_yellow
+	
+	#find biggest colored objects and get their positions
+	blue = find_object(frame, mask_blue)
+	yellow = find_object(frame, mask_yellow)
+	if blue != None and yellow !=None :
+		x,y,w,h = blue
+		a,b,c,d = yellow
+	# find the two points
+		point1 = np.array([x+w/2, y+h/2])
+		point2 = np.array([a+c/2, b+d/2])
+		pos = point1
+		n = point1-point2
+		direction = n / math.sqrt(np.dot(n,n))
+		# print pos, direction
+		# CUE = cue(pos,direction)
+		return point1, point2
 
-		#Show the original camera feed with a bounding box overlayed 
-		cv2.imshow('frame',frame)
-		#Show the contours in a seperate window
-		cv2.imshow('mask',mask)
-		#Use this command to prevent freezes in the feed
-		k = cv2.waitKey(5) & 0xFF
-		#If escape is pressed close all windows
-		if k == 27:
-			break
+# 	#Show the original camera feed with a bounding box overlayed 
+# 	cv2.imshow('frame',frame)
+# 	#Show the contours in a seperate window
+# 	cv2.imshow('mask',mask)
+# 	#Use this command to prevent freezes in the feed
+# # 	k = cv2.waitKey(5) & 0xFF
+# # 	#If escape is pressed close all windows
+# # 	if k == 27:
+# # 		break
 
-	cv2.destroyAllWindows() 
+# # cv2.destroyAllWindows() 
 
-
-
-if __name__ == '__main__':
-	Track_cue()
 	

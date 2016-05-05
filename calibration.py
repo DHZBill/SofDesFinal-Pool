@@ -88,19 +88,19 @@ def calibrate_interface(img):
     # initialize the window and set interaction function
     if type(img) == str:
         img = cv2.imread(img)
-    cv2.namedWindow('original')
-    cv2.setMouseCallback('original', store_points)
+    cv2.namedWindow('Corner calibration')
+    cv2.setMouseCallback('Corner calibration', store_points)
 
     while True:
         # display the input image
-        cv2.imshow('original',img)
+        cv2.imshow('Corner calibration',img)
 
         # wait until there have been 4 clicks
         if len(ref_pts) > 3:
             pts = np.array(ref_pts)
             warped = four_point_transform(img, pts)
             #display the transformed image
-            cv2.imshow('warped', warped)
+            cv2.imshow('Warped image', warped)
             cv2.waitKey(0)
             break
 
