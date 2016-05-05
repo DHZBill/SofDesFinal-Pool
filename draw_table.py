@@ -1,6 +1,7 @@
 #basic display graphics, draw table with pockets and balls given a list of ball objects
 import pygame, math, physics, sys
 from ball import ball
+import numpy as np
 
 class Table(object):
 	def __init__(self, ballList, top = 84,bottom = 789,left = 84,right =1494, pockets = ((83,78, 1),(790,57, 2),(1499,80, 3),(83,791, 4),(790,810, 5),(1499,790, 6))):
@@ -45,9 +46,6 @@ class Table(object):
 		sys.exit()
 
 	def draw_projection(self):
-		if(not self.checkRunning()):
-			print("Nothing is moving you dingus")
-			return
 		screen = pygame.display.set_mode((1579,873))
 		table = pygame.image.load('pool_table.png')
 		screen = pygame.display.set_mode((1579,873))
@@ -69,7 +67,14 @@ class Table(object):
 					sys.exit()
 	def initializeHitFromCue(cue):
 		# start a hit from the cue point
-		pass
+		cueBall = self.ballList[0]
+		dx = cue.point1.x - cue.point2.x
+		dy = cue.point1.y - cue.point2.y
+		xspace = np.linspace(cue.point1.x, cue.point2.x, max(int(dx), int(dy)))
+		yspace = np.linspace(cue.point1.y, cue.point2.y, max(int(dx), int(dy)))
+		for i in range(xspace): # double check this later to make sure these line up with points on the line
+			if(math.sqrt((xspace[i] - cueBall.pos[0])**2 + (yspace[i] - cueBall.pos[1])**2) < (cueBall.radius)):
+				
 
 
 if __name__ == '__main__':
