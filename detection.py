@@ -4,6 +4,12 @@ from ball import ball
 import cv2
 
 class Image_Detection(object):
+	'''
+	detects balls and walls
+	returns x and y coords of balls in ball_list
+	returns x coord of left and right walls in lr_walls
+	returns y coord of top and bottom walls in tb_walls
+	'''
 	def __init__(self):
 		self.ball_list = []
 		self.ref_pts = []
@@ -11,6 +17,10 @@ class Image_Detection(object):
 		self.tb_walls = []
 
 	def write_circles(self,img):
+		'''
+		draws circles around all the balls that are detected
+		returns the x,y coords of the balls as well as the ball number
+		'''
 		# img = cv2.imread(img,0)
 		img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 		img = cv2.medianBlur(img,5)
@@ -39,6 +49,9 @@ class Image_Detection(object):
 		return self.ball_list
 
 	def store_points(self,event,x,y,flags,param):
+		'''
+		stores the coordinates of a point if left-click is pressed
+		'''
 	    if event == cv2.EVENT_LBUTTONDOWN:
 	        coords = (x, y)
 
@@ -53,7 +66,10 @@ class Image_Detection(object):
 	        	self.lr_walls.append(coords[0])
 
 	def wall_finder(self,img):
-		'starting from left wall, click on wall and move clockwise around the table'
+		'''
+		starting from left wall, click on wall and move clockwise around the table
+		stores the wall coords in a list
+		'''
 		# img = cv2.imread(img)
 
 		cv2.imshow('walls',img)
@@ -64,5 +80,3 @@ if __name__ == '__main__':
 	# I = Image_Detection()
 	# I.wall_finder('warped.jpg')
 	# I.write_circles('warped.jpg')
-	# print 'left and right walls:',I.lr_walls
-	# print 'top and bottom walls:',I.tb_walls
