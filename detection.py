@@ -10,12 +10,13 @@ class Image_Detection(object):
 		self.lr_walls = []
 		self.tb_walls = []
 
-	def write_circles(self,image_name):
-		img = cv2.imread(image_name,0)
-		img = cv2.medianBlur(img,5)
-		cimg = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
+	def write_circles(self,img):
+		# img = cv2.imread(image_name,0)
+		cimg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		cimg = cv2.medianBlur(cimg,5)
+		cimg = cv2.cvtColor(cimg,cv2.COLOR_GRAY2BGR)
 
-		circles = cv2.HoughCircles(img,cv2.cv.CV_HOUGH_GRADIENT,1,30,
+		circles = cv2.HoughCircles(cimg,cv2.cv.CV_HOUGH_GRADIENT,1,30,
 		                            param1=50,param2=23,minRadius=0,maxRadius=126)
 
 		circles = np.uint16(np.around(circles))
@@ -51,16 +52,17 @@ class Image_Detection(object):
 	        	self.ref_pts.append(coords)
 	        	self.lr_walls.append(coords[0])
 
-	def wall_finder(self,image_name):
-		'starting from left wall, click on wall and move counterclockwise around the table'
-		img = cv2.imread(image_name)
+	def wall_finder(self,img):
+		'starting from left wall, click on wall and move clockwise around the table'
+		# img = cv2.imread(image_name)
 
-		cv2.imshow('circles.jpg',img)
-		cv2.setMouseCallback('circles.jpg', self.store_points)
+		cv2.imshow('walls',img)
+		cv2.setMouseCallback('walls', self.store_points)
 
 if __name__ == '__main__':
-	I = Image_Detection()
-	I.wall_finder('warped.jpg')
-	I.write_circles('warped.jpg')
-	print 'left and right walls:',I.lr_walls
-	print 'top and bottom walls:',I.tb_walls
+	pass
+	# I = Image_Detection()
+	# I.wall_finder('warped.jpg')
+	# I.write_circles('warped.jpg')
+	# print 'left and right walls:',I.lr_walls
+	# print 'top and bottom walls:',I.tb_walls

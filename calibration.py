@@ -86,6 +86,8 @@ def calibrate_interface(img):
     '''
 
     # initialize the window and set interaction function
+    if type(img) == str:
+        img = cv2.imread(img)
     cv2.namedWindow('original')
     cv2.setMouseCallback('original', store_points)
 
